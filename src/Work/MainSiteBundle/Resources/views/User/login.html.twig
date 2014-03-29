@@ -3,25 +3,38 @@
 {% block title %}WorkMainSiteBundle:User:login{% endblock %}
 
 {% block body %}
-<h1>Welcome to the User:login page</h1>
-{# src/Acme/SecurityBundle/Resources/views/Security/login.html.twig #}
+<div class="page-header">
+  <h1>howdowework.com <small>user login page</small></h1>
+</div>
+
 {% if error %}
-    <div>{{ error.message }}</div>
+<div class="row">
+	<div class="col-xs-6 col-sm-4">
+	    <div class="alert alert-danger alert-dismissable">
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		  <strong>Ups !</strong> {{ error.message }}.
+		</div>
+	</div>
+</div>
 {% endif %}
-
-<form action="{{ path('work_main_site_login_check') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
-
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
-
-    <button type="submit">login</button>
-</form>
+	
+<div class="row">
+	<div class="col-xs-6 col-sm-4">
+		<form action="{{ path('work_main_site_login_check') }}" method="post" role="form" class="form-horizontal">
+		
+		    <div class="form-group">
+		    	<label for="username">Username:</label>
+				<input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="Enter your username or e-mail" />
+		    </div>
+		    
+		    <div class="form-group">
+		    	<label for="password">Password:</label>
+				<input type="password" class="form-control" id="password" name="_password" placeholder="Enter your password" />
+		    </div>
+		    
+		    <button type="submit" class="btn btn-primary">Login</button>
+		    
+		</form>
+	</div>
+</div>
 {% endblock %}

@@ -3,15 +3,24 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		{% stylesheets 'bundles/workmainsite/css/*' filter='cssrewrite' %}
+		{% stylesheets 
+				'bundles/workmainsite/css/*' 
+				'bundles/workmainsite/bootstrap-3.1.1-dist/css/bootstrap.min.css' filter='cssrewrite'
+				'bundles/workmainsite/bootstrap-3.1.1-dist/css/bootstrap-theme.min.css' filter='cssrewrite'
+		filter='cssrewrite' %}
 		    <link rel="stylesheet" href="{{ asset_url }}" />
 		{% endstylesheets %}
+		
+		
 		{% javascripts 
+						'@WorkMainSiteBundle/Resources/public/bootstrap-3.1.1-dist/js/bootstrap.min.js'
 						'@WorkMainSiteBundle/Resources/public/js/jquery-1.11.0.js' 
 						'@WorkMainSiteBundle/Resources/public/js/*' 
 		%}
 		    <script type="text/javascript" src="{{ asset_url }}"></script>
 		{% endjavascripts %}
+		
+		
 		<script>
 			$(document).ready(function(){
 			
@@ -21,8 +30,10 @@
 	</head>
 	
 	<body>
-	{% block body %} 
-	{% endblock %}
+		<div class="container">
+			{% block body %} 
+			{% endblock %}
+		</div>
 	</body>
 	
 </html>
