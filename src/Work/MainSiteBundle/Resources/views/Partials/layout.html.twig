@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		{% stylesheets 'bundles/workmainsite/css/*' filter='cssrewrite' %}
+		    <link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %}
+		{% javascripts 
+						'@WorkMainSiteBundle/Resources/public/js/jquery-1.11.0.js' 
+						'@WorkMainSiteBundle/Resources/public/js/*' 
+		%}
+		    <script type="text/javascript" src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+		<script>
+			$(document).ready(function(){
+			
+				console.log('test');
+			});
+		</script>
+	</head>
+	
+	<body>
+	{% block body %} 
+	{% endblock %}
+	</body>
+	
+</html>

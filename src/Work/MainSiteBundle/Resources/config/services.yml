@@ -1,0 +1,7 @@
+parameters:
+#    work_main_site.example.class: Work\MainSiteBundle\Example
+
+services:
+#    work_main_site.example:
+#        class: %work_main_site.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

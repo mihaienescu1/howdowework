@@ -1,0 +1,10 @@
+work_main_site_homepage:
+    pattern:  /
+    defaults: { _controller: WorkMainSiteBundle:Default:index }
+    
+work_main_site_resume:
+    pattern:  /resume
+    defaults: { _controller: WorkMainSiteBundle:Default:resume }
+login:
+    pattern: /login
+    defaults: { _controller: WorkMainSiteBundle:User:login }

@@ -1,0 +1,13 @@
+work_main_site:
+    resource: "@WorkMainSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
+work_main_site_login:
+    path:     /login
+    defaults: { _controller: WorkMainSiteBundle:User:login }
+
+work_main_site_login_check:
+    path: /login_check
+
+work_main_site_logout:
+    path: /logout
