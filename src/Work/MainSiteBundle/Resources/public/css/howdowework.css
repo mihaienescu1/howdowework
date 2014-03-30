@@ -1,12 +1,13 @@
-html, * {
+/**
+* @author Mihai Enescu <enescu.mihai@outlook.com>
+* Setting up the color policy of the website
+*/
 
+
+#hdww-account-button {
+	outline: 0;
 }
 
-.resume {
-	width:70%;
-	border:solid 1px red;
-}
-
-.howdowework-login-form-wrapper {
-	
+.hdww-account-html-content-guest, .hdww-account-html-content-logged-in {
+	display:none;
 }

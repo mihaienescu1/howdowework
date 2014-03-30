@@ -1,8 +1,8 @@
 {% extends '@WorkMainSite/Partials/layout-base.html.twig' %}
 {% block body %}
-	<header></header>
+	<header>{{ include('@WorkMainSite/Partials/header.html.twig') }}</header>
 	<main>
 		{% block content %}{% endblock %}
 	</main>
-	<footer></footer>
+	<footer>{{ include('@WorkMainSite/Partials/footer.html.twig') }}</footer>
 {% endblock %}

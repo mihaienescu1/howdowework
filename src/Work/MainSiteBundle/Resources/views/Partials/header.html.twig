@@ -1,0 +1,100 @@
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ path('work_main_site_homepage') }}">howdowework.com</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav howdowework-nav-menu">
+      	<li><a href="{{ path('work_main_site_reviews') }}">Reviews</a></li>
+      	<li><a href="{{ path('work_main_site_about') }}">About Project</a></li>
+        <li><a href="{{ path('work_main_site_companies') }}">Companies</a></li>
+        <li><a href="{{ path('work_main_site_candidates') }}">Candidates</a></li>
+		<li><a href="{{ path('work_main_site_jobs') }}">Jobs</a></li>
+		<li><a href="{{ path('work_main_site_contact') }}">Contact</a></li>
+      </ul>
+    
+    <!--
+    <ul class="nav navbar-nav navbar-right">
+    	<li>
+    	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    		<a href="#" id="hdww-account-button" data-container="body" data-toggle="popover" data-placement="bottom" content-selector=".hdww-account-html-content-logged-in">
+        		<span class="hdww-current-user" >{{ app.user.username }} </span>&nbsp;
+				<span class="glyphicon glyphicon-user"></span> 
+				<span class="glyphicon glyphicon-chevron-down"></span>
+        	</a>
+    	{% else %}
+        	<a href="#" id="hdww-account-button" data-container="body" data-toggle="popover" data-placement="bottom" content-selector=".hdww-account-html-content-guest">
+        		<span class="hdww-current-user" >Guest Account</span>&nbsp;
+				<span class="glyphicon glyphicon-user"></span> 
+				<span class="glyphicon glyphicon-chevron-down"></span>
+        	</a>
+        {% endif %}
+        </li>
+     </ul>
+     -->
+     
+     <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} &nbsp;
+            <span class="glyphicon glyphicon-user"></span>
+            <b class="caret"></b>
+          </a>
+            <ul class="dropdown-menu">
+             <li><a href="#">Account Settings</a></li>
+             <li class="divider"></li>
+             <li><a href="{{ path('work_main_site_logout') }}">Sign Out</a></li>
+            </ul>
+         {% else %}
+         	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Guest &nbsp;
+	          <span class="glyphicon glyphicon-user"></span>
+	          <b class="caret"></b>
+	        </a>
+	          <ul class="dropdown-menu">
+	            <li class="dropdown" style="width:240px;">
+	            	<div class="container-fluid" style="padding:10px 30px 5px 30px;">
+					<form action="{{ path('work_main_site_login_check') }}" method="post" role="form" class="form-horizontal">
+						<div class="form-group">
+							<div class="input-group input-group-sm">
+					    		<span class="input-group-addon">
+					    			<span class="glyphicon glyphicon-user"></span>
+					    		</span>
+								<input type="text" class="form-control input-sm" id="username" name="_username" placeholder="Email" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="input-group input-group-sm">
+					    		<span class="input-group-addon">
+					    			<span class="glyphicon glyphicon-lock"></span>
+					    		</span>
+								<input type="password" class="form-control input-sm" id="password" name="_password" placeholder="Password" />
+							</div>
+						</div>			
+						<button type="submit" class="btn btn-sm btn-primary" style="clear: left; width: 100%;">Login</button>
+					</form>
+					</div>
+	            </li>
+	            <li style="text-align:center; padding:0px 0px 10px 0px;">
+		            - or - 
+		            <div style="clear:both; height:10px"></div>
+		            <button type="button" url={{ path('work_main_site_register') }} id="hdww-register-button" class="btn btn-sm btn-primary" style="clear: left; width: 75%;">Register</button>
+	            </li>
+	          </ul>
+         {% endif %}
+        </li>
+      </ul>
+     
+     </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+

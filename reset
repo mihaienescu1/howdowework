@@ -1,0 +1,5 @@
+php app/console cache:clear
+php app/console assets:install web --symlink
+php app/console assetic:dump
+rm -rf app/cache/*
+rm -rf app/logs/*

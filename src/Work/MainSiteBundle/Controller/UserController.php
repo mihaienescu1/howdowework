@@ -5,6 +5,8 @@ namespace Work\MainSiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
+use Work\MainSiteBundle\Form\Type\UserType;
+use Work\MainSiteBundle\Entity\User;
 
 class UserController extends Controller
 {
@@ -36,6 +38,37 @@ class UserController extends Controller
                 'error'         => $error,
             )
         );
+    }
+    
+    public function registerAction(Request $request)
+    {
+    	$user = new User();
+    	$form = $this->createForm(new UserType(), $user);
+    	
+    	$form->handleRequest($request);
+    	
+    	if ($form->isValid()) 
+    	{
+    		$userManager = $this->get('fos_user.user_manager');
+    			
+    			
+    		$usernameAndEmail = $form->getData()->getEmail();
+    		$password		  = $form->getData()->getPassword();
+    		
+			$user = $userManager->createUser();
+	    	$user->setUsername($usernameAndEmail);
+	    	$user->setEmail($usernameAndEmail);
+	    	$user->setPassword($password);
+	    	$user->setEnabled(true);
+	    	
+	    	$userManager->updateUser($user);
+
+    	}
+    	
+    	return $this->render('WorkMainSiteBundle:User:register.html.twig', array(
+    								'form' => $form->createView()
+    							)
+    				);
     }
 
 }
