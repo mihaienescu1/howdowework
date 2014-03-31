@@ -49,19 +49,18 @@ class UserController extends Controller
     	
     	if ($form->isValid()) 
     	{
-    		$userManager = $this->get('fos_user.user_manager');
-    			
-    			
     		$usernameAndEmail = $form->getData()->getEmail();
     		$password		  = $form->getData()->getPassword();
     		
-			$user = $userManager->createUser();
+    		$userManager = $this->get('fos_user.user_manager');
+    		$user = $userManager->createUser();
 	    	$user->setUsername($usernameAndEmail);
 	    	$user->setEmail($usernameAndEmail);
-	    	$user->setPassword($password);
+	    	$user->setPlainPassword($password);
 	    	$user->setEnabled(true);
 	    	
 	    	$userManager->updateUser($user);
+
 
     	}
     	
