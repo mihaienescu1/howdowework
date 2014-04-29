@@ -11,3 +11,12 @@ work_main_site_login_check:
 
 work_main_site_logout:
     path: /logout
+    
+_security_check:
+    pattern:  /login_check
+
+_security_logout:
+    pattern:  /logout
+
+fos_facebook_channel:
+    resource: "@FOSFacebookBundle/Resources/config/routing.xml"

@@ -33,3 +33,11 @@ work_main_site_contact:
 work_main_site_reviews:
     pattern: /reviews
     defaults: { _controller: WorkMainSiteBundle:WebApp:reviews }
+    
+work_main_site_post:
+    pattern: /fb
+    defaults: { _controller: WorkMainSiteBundle:Parse:index }
+
+work_main_site_post_dashboard:
+    pattern: /fb/dashboard
+    defaults: { _controller: WorkMainSiteBundle:Parse:dashboard }
