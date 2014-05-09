@@ -25,27 +25,77 @@ class PostCommand extends ContainerAwareCommand
 		
 		$brandImg = 'http://whymihu.com/wp-content/uploads/2014/04/Screen-Shot-2014-04-27-at-17.11.46.png';
 		
-		// post;
+	 	$postRepository = $this->getContainer()->get('doctrine')->getRepository('WorkMainSiteBundle:Post');
+		$entityManager  = $this->getContainer()->get('doctrine')->getManager();
 		
-		$id_users = 1;
-		$fbUserId = '100000766901491';
-		$fbAccessToken = 'CAADYLNtRJMABAItBSd9KMZCMdufceG3HqpxWJ5fJEj4on3uj1LtiQ9W4skoSSZCuCCRpkWGpPkbHt0F8uDwNaBbDMAcH3C7ZA1ZB34IKwHKQAOK0XEIC75OWgln7OjQ0ScCq7GFDuMYz1CKHHCElAE5eSvCFq0DFCkRvJPSG8F7iIncxrvwM48qFBMRfduoZD';
-		$message = 'Test News';
-		$link = 'http://observator.tv/social/femeile-fapturi-de-neinteles-123827.html';
-		$picture = $brandImg;
-		$name = 'Test Post';
-		$caption = 'Test Post Caption';
-		$description = 'Test News Description';
+		$data = $postRepository->findBy(array('status' => 1));
 		
+		shuffle($data);
+		 
+		foreach ($data as $key => $line) {
+
+			$result = $this->_processRecord($line);
+			
+			if ($result->status == 1) {
+			
+				$line->setStatus(2);
+				$entityManager->persist($line);
+				$entityManager->flush();
+				
+				$output->writeln($line->getId() . ' was posted on fb.');
+			} else {
+				$output->writeln($line->getId() . ' [Api or db error]');
+			}
+
+		}
+	}
+	
+	protected function _processRecord(Post $post) 
+	{
+	
+		$summary = $post->getSummary();
 		
-		// cronjobs; 
+		if (empty($summary)) {
+			$summary = $post->getDescription();
+		}
+	
+		$postContent = array(
+    		'message' 		=> 'Sursa: ' . ucfirst($post->getSource()),
+    		'link' 			=>  $post->getPath(),
+    		'picture' 		=>  $post->getEnclosure(),
+    		'name' 			=>  $post->getTitle(),
+    		'caption' 		=>  $post->getRssDateTime()->format('\P\u\b\l\i\c\a\t \l\a d/m/Y \o\r\a H:i:s'),
+    		'description'	=>  $summary,
+    	);
+    	
+    	$encoded = urlencode(json_encode($postContent));
+    	
+    	$apiKey = 'PZV2iJ06xGr48uX1Cz8fpYGPw4Q5Vu03'; 
+    	
+    	$url = 'http://sofiasekret.com/sfp/index.php/api/schedule';
+    	
+		$fields = array(
+			'key' 		=> $apiKey,
+			'content' 	=> $encoded,
+		);
 		
-		$id_post = 000;
-		$id_wall = '';
-		$page_access_token = '';
-		$name = 'Mihu';
-	 	
-	 	
+		$fields_string = '';
+		foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
+		rtrim($fields_string, '&');
 		
+		$ch = curl_init();
+    	
+    	curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POST, count($fields));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		
+		$result = curl_exec($ch);
+		
+		curl_close($ch);
+		
+		$apiResponse = json_decode($result);
+			//var_dump($result);
+		return $apiResponse;
 	}
 }

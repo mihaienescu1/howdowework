@@ -35,7 +35,7 @@ class ParseCommand extends ContainerAwareCommand
 		$feed  = $reader->getFeedContent($rssFeedUrl);
 		$items = $feed->getItems();
 		
-		
+		$postsHandler = 'http://whymihu.com/news/';
 		
 		$totalCount = 0;
 		
@@ -63,7 +63,7 @@ class ParseCommand extends ContainerAwareCommand
 				$post->setDescription($item->getDescription());
 				$post->setTitle($item->getTitle());
 				$post->setLink($link);
-				$post->setPath('/' . $rssFeedName . parse_url($link, PHP_URL_PATH));
+				$post->setPath($postsHandler . $rssFeedName . parse_url($link, PHP_URL_PATH));
 				$post->setUniqueId($uniqueId);
 				$post->setStatus(0);
 				$post->setShortLinkHash(crc32($link));
